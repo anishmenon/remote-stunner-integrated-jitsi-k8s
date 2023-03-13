@@ -1,0 +1,56 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jitsi-meet
+  labels:
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: jitsi
+    app.kubernetes.io/component: web
+  annotations:
+    kubernetes.io/ingress.class:  "nginx"
+spec:
+  # This is the TLS settings for Nginx Ingress
+  tls:
+    # This shall be the secret that created at begging of the Installation guide
+    - secretName: nexhe-ssl # TODO: change it
+      # This is domain for the web service
+      hosts:
+      - jitsi-svc.kubes.meetmo.io # TODO: Change it
+      # - livekit-svc.kubes.meetmo.io
+      # - livekit-svc-media.kubes.meetmo.io
+  rules:
+      # This is also the domain of your web service
+      # WARNING: The host in the tls part and the host in this part shall match.
+    - host: jitsi-svc.kubes.meetmo.io # TODO: Change it
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                # This will be the service name of the Jitsi web deployment.
+                # If you change this part of the Jitsi deployment, then change this
+                # part too.
+                name: jitsi-meet
+                port:
+                  number: 80
+    # - host: livekit-svc.kubes.meetmo.io
+    #   http:
+    #     paths:
+    #     - path: /
+    #       pathType: Prefix
+    #       backend:
+    #         service:
+    #           name: lk-react
+    #           port:
+    #             number: 443
+    # - host: livekit-svc-media.kubes.meetmo.io
+    #   http:
+    #     paths:
+    #     - path: /
+    #       pathType: Prefix
+    #       backend:
+    #         service:
+    #           name: lk-server
+    #           port:
+    #             number: 443

@@ -1,0 +1,24 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa-stunner
+  namespace: stunner
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: stunner
+  # Minimum and maximum number of replicas.
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      # Watch the CPU consumption and if it's utilize the given percentage of
+      # the maximum than it will scale the number of pods.
+      name: cpu
+      target:
+        type: Utilization
+        # 360% of the requested CPU, by default 250m CPU core is requested
+        # 360% is 900m CPU core
+        averageUtilization: 360 

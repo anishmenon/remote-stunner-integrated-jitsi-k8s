@@ -1,0 +1,70 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: GatewayClass
+metadata:
+  name: stunner-gatewayclass
+spec:
+  controllerName: "stunner.l7mp.io/gateway-operator"
+  parametersRef:
+    group: "stunner.l7mp.io"
+    kind: GatewayConfig
+    name: stunner-gatewayconfig
+    namespace: stunner
+  description: "STUNner is a WebRTC ingress gateway for Kubernetes"
+---
+# Jitsi
+apiVersion: stunner.l7mp.io/v1alpha1
+kind: GatewayConfig
+metadata:
+  name: stunner-gatewayconfig
+  namespace: stunner
+spec:
+  # Because Prosody uses long term authentication for TURN STUNner shall be
+  # configured like that.
+  authType: longterm
+  # Change this part to a more secure secret.
+  sharedSecret: "my-shared-secret"
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: Gateway
+metadata:
+  name: tls-gateway
+  namespace: stunner
+spec:
+  gatewayClassName: stunner-gatewayclass
+  listeners:
+      # This listener will be visible for everyone outside of the cluster
+    - name: tls-listener
+      port: 443
+      protocol: TLS
+      # Use the secret what is created at the beginning of the Installation guide.
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: nexhe-ssl
+            namespace: stunner
+        mode: Terminate
+    # - name: lk-tls-listener
+    #   port: 443
+    #   protocol: TLS
+    #   tls:
+    #     certificateRefs:
+    #       - kind: Secret
+    #         name: nexhe-ssl
+    #         namespace: stunner
+    #     mode: Terminate
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: UDPRoute
+metadata:
+  name: jitsi-media-plane
+  namespace: stunner
+spec:
+  parentRefs:
+    - name: tls-gateway
+  rules:
+      # This will not be visible outside of the cluster.
+      # This is link between STUNner and the JVB deployment.
+      # STUNner and JVB communicating through UDP on JVB port 10000
+    - backendRefs:
+        - name: jitsi-jvb
+          namespace: default

@@ -1,0 +1,53 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: GatewayClass
+metadata:
+  name: lk-stunner-gatewayclass
+spec:
+  controllerName: "stunner.l7mp.io/gateway-operator"
+  parametersRef:
+    group: "stunner.l7mp.io"
+    kind: GatewayConfig
+    name: lk-stunner-gatewayconfig
+    namespace: lk-stunner
+  description: "STUNner is a WebRTC ingress gateway for Kubernetes"
+---
+apiVersion: stunner.l7mp.io/v1alpha1
+kind: GatewayConfig
+metadata:
+  name: lk-stunner-gatewayconfig
+  namespace: lk-stunner
+spec:
+  authType: plaintext
+  userName: "user-1"
+  password: "pass-1"
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: lk-tls-gateway
+  namespace: lk-stunner
+spec:
+  gatewayClassName: lk-stunner-gatewayclass
+  listeners:
+    - name: lk-tls-listener
+      port: 443
+      protocol: TLS
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: nexhe-ssl
+            namespace: lk-stunner
+        mode: Terminate
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: UDPRoute
+metadata:
+  name: livekit-media-plane
+  namespace: stunner
+spec:
+  parentRefs:
+    - name: lk-tls-gateway
+  rules:
+    - backendRefs:
+        - name: lk-server
+          namespace: default
