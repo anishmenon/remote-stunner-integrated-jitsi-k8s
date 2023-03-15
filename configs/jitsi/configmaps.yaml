@@ -6,30 +6,35 @@ metadata:
     app.kubernetes.io/name: jitsi-meet
     app.kubernetes.io/instance: jitsi
 data:
-  ENABLE_AUTH: "0"
+  ENABLE_AUTH: "1"
+  JWT_APP_ID: "meetmo"
   ENABLE_GUESTS: "1"
+  AUTH_TYPE: "jwt"
+# Application secret known only to your token generator
+  JWT_APP_SECRET: "A12988E22EA99EA22B97BD634FDE31CC5A3C48D96B544329B7AD3C84E7A06398"
+
   # This is just for testing purpose to enforce JVB/STUNner usage.
   # In production is recommended to turn this on.
   ENABLE_P2P: "0"
   # This shall be the domain what is pointing to your Ingress Gateway.
-  PUBLIC_URL: "https://jitsi-svc.kubes.meetmo.io" # TODO: Change this
+  PUBLIC_URL: "https://media0.cluster.meetmo.io" # TODO: Change this
   # Enable TURN
   TURN_ENABLE: "true"
   # This shall be the domain what is pointing to your STUNner Gateway.
-  TURNS_HOST: "stunner-svc.kubes.meetmo.io" # TODO: Change this
+  TURNS_HOST: "relay0.cluster.meetmo.io" # TODO: Change this
   # Define the TURN port
   TURNS_PORT: "443"
   # This shall be the same secret what is configured in STUNner gateway.
-  TURN_CREDENTIALS: "my-shared-secret"
+  TURN_CREDENTIALS: "6uQ3AzSCmizkf5SxvKNkyAjZYGIXs"
   JICOFO_AUTH_USER: "focus"
   # These are for internal communication. Change the domains for the one what
   # is pointing to your Ingress Gateway.
-  XMPP_DOMAIN: jitsi-svc.kubes.meetmo.io
-  XMPP_MUC_DOMAIN: muc.jitsi-svc.kubes.meetmo.io
-  XMPP_AUTH_DOMAIN: auth.jitsi-svc.kubes.meetmo.io
-  XMPP_GUEST_DOMAIN: guest.jitsi-svc.kubes.meetmo.io
-  XMPP_RECORDER_DOMAIN: recorder.jitsi-svc.kubes.meetmo.io
-  XMPP_INTERNAL_MUC_DOMAIN: internal-muc.jitsi-svc.kubes.meetmo.io
+  XMPP_DOMAIN: media0.cluster.meetmo.io
+  XMPP_MUC_DOMAIN: muc.media0.cluster.meetmo.io
+  XMPP_AUTH_DOMAIN: auth.media0.cluster.meetmo.io
+  XMPP_GUEST_DOMAIN: guest.media0.cluster.meetmo.io
+  XMPP_RECORDER_DOMAIN: recorder.media0.cluster.meetmo.io
+  XMPP_INTERNAL_MUC_DOMAIN: internal-muc.media0.cluster.meetmo.io
   ENABLE_XMPP_WEBSOCKET: "1"
   ENABLE_COLIBRI_WEBSOCKET: "1"
   XMPP_MUC_MODULES: "external_services"

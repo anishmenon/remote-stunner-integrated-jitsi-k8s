@@ -12,16 +12,18 @@ spec:
   # This is the TLS settings for Nginx Ingress
   tls:
     # This shall be the secret that created at begging of the Installation guide
-    - secretName: nexhe-ssl # TODO: change it
+    - secretName: meetmo-cluster-ssl # TODO: change it
       # This is domain for the web service
       hosts:
-      - jitsi-svc.kubes.meetmo.io # TODO: Change it
-      - livekit-svc.kubes.meetmo.io # Application server for LiveKit
-      - livekit-svc-media.kubes.meetmo.io # Media server for LiveKit
+      - media0.cluster.meetmo.io # TODO: Change it
+      - media1.cluster.meetmo.io # Application server for LiveKit
+      - media1ws.cluster.meetmo.io # Media server for LiveKit
+  
   rules:
       # This is also the domain of your web service
       # WARNING: The host in the tls part and the host in this part shall match.
-    - host: jitsi-svc.kubes.meetmo.io # TODO: Change it
+    
+    - host: media0.cluster.meetmo.io # TODO: Change it
       http:
         paths:
           - path: /
@@ -34,7 +36,8 @@ spec:
                 name: jitsi-meet
                 port:
                   number: 80
-    - host: livekit-svc.kubes.meetmo.io
+    
+    - host: media1.cluster.meetmo.io
       http:
         paths:
         - path: /
@@ -44,7 +47,8 @@ spec:
               name: lk-react
               port:
                 number: 443
-    - host: livekit-svc-media.kubes.meetmo.io
+    
+    - host: media1ws.cluster.meetmo.io
       http:
         paths:
         - path: /

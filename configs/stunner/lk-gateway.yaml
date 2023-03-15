@@ -35,7 +35,7 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: nexhe-ssl
+            name: meetmo-cluster-ssl
             namespace: lk-stunner
         mode: Terminate
 ---

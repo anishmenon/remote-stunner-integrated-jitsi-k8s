@@ -43,9 +43,9 @@ On the [Digitalocean](https://cloud.digitalocean.com/kubernetes/) website create
 Because both STUNner and LiveKit uses the same certificate it is required to create this secret in the default namespace where the LiveKit deployment will be located and in the stunner namespace where the stunner will located.
 
 ```console
-kubectl create secret tls nexhe-ssl --cert=certificate.crt --key=private.key
+kubectl create secret tls meetmo-cluster-ssl --cert=certificate.crt --key=private.key
 kubectl create namespace lk-stunner
-kubectl create secret tls nexhe-ssl --cert=certificate.crt --key=private.key -n lk-stunner
+kubectl create secret tls meetmo-cluster-ssl --cert=certificate.crt --key=private.key -n lk-stunner
 ```
 
 Verify that your secret exists:
@@ -55,7 +55,7 @@ kubectl get secret
 kubectl get secret -n lk-stunner
 ```
 
-You should see `nexhe-ssl` in both output.
+You should see `meetmo-cluster-ssl` in both output.
 
 ## Install and configure the Nginx Ingress
 
