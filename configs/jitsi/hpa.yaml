@@ -19,6 +19,4 @@ spec:
       name: cpu
       target:
         type: Utilization
-        # 180% of the requested CPU, by default 500m CPU core is requested
-        # 180% is 900m CPU core
-        averageUtilization: 180 # 180% of the maximum CPU
+        averageUtilization: 60 # 60% of the maximum CPU

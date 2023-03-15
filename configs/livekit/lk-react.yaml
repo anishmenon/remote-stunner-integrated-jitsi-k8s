@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: lk-react
+  name: lk-react
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lk-react
+  template:
+    metadata:
+      labels:
+        app: lk-react
+    spec:
+      containers:
+      - name: lk-react
+        image: davidkornel/lk-react:latest
+        imagePullPolicy: IfNotPresent
+        command: ["yarn"]
+        args: ["start"]
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lk-react
+  labels:
+    app: lk-react
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 443
+      targetPort: 3000
+      protocol: TCP
+      name: https
+  selector:
+    app: lk-react

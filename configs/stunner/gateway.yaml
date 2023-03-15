@@ -43,15 +43,6 @@ spec:
             name: nexhe-ssl
             namespace: stunner
         mode: Terminate
-    # - name: lk-tls-listener
-    #   port: 443
-    #   protocol: TLS
-    #   tls:
-    #     certificateRefs:
-    #       - kind: Secret
-    #         name: nexhe-ssl
-    #         namespace: stunner
-    #     mode: Terminate
 ---
 apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: UDPRoute
@@ -63,7 +54,7 @@ spec:
     - name: tls-gateway
   rules:
       # This will not be visible outside of the cluster.
-      # This is link between STUNner and the JVB deployment.
+      # This is the link between STUNner and the JVB deployment.
       # STUNner and JVB communicating through UDP on JVB port 10000
     - backendRefs:
         - name: jitsi-jvb

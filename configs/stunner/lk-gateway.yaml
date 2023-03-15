@@ -43,7 +43,7 @@ apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: UDPRoute
 metadata:
   name: livekit-media-plane
-  namespace: stunner
+  namespace: lk-stunner
 spec:
   parentRefs:
     - name: lk-tls-gateway

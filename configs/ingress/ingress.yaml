@@ -16,8 +16,8 @@ spec:
       # This is domain for the web service
       hosts:
       - jitsi-svc.kubes.meetmo.io # TODO: Change it
-      # - livekit-svc.kubes.meetmo.io
-      # - livekit-svc-media.kubes.meetmo.io
+      - livekit-svc.kubes.meetmo.io # Application server for LiveKit
+      - livekit-svc-media.kubes.meetmo.io # Media server for LiveKit
   rules:
       # This is also the domain of your web service
       # WARNING: The host in the tls part and the host in this part shall match.
@@ -34,23 +34,23 @@ spec:
                 name: jitsi-meet
                 port:
                   number: 80
-    # - host: livekit-svc.kubes.meetmo.io
-    #   http:
-    #     paths:
-    #     - path: /
-    #       pathType: Prefix
-    #       backend:
-    #         service:
-    #           name: lk-react
-    #           port:
-    #             number: 443
-    # - host: livekit-svc-media.kubes.meetmo.io
-    #   http:
-    #     paths:
-    #     - path: /
-    #       pathType: Prefix
-    #       backend:
-    #         service:
-    #           name: lk-server
-    #           port:
-    #             number: 443
+    - host: livekit-svc.kubes.meetmo.io
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: lk-react
+              port:
+                number: 443
+    - host: livekit-svc-media.kubes.meetmo.io
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: lk-server
+              port:
+                number: 443
