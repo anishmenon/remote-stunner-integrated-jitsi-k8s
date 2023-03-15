@@ -123,7 +123,7 @@ kubectl apply -f /configs/stunner/gateway.yaml
 Wait until STUNner gets a load balancer IP:
 
 ```console
-until [ -n "$(kubectl get svc stunner-gateway-udp-gateway-svc -n stunner -o jsonpath='{.status.loadBalancer.ingress[0].ip}')" ]; do sleep 1; done
+until [ -n "$(kubectl get svc tls-gateway -n stunner -o jsonpath='{.status.loadBalancer.ingress[0].ip}')" ]; do sleep 1; done
 ```
 
 After that add a record to your domain that points to the STUNer's load balancer IP.
