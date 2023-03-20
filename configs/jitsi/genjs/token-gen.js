@@ -7,9 +7,9 @@ console.log(jwt.sign({
     room: "*",
     context: {
       user: {
-        id: "24",
-        name: "Johan Romaro",
-        email: "johan@meetmo.io",
+        id: "25",
+        name: "Anish Menon",
+        email: "anish@meetmo.io",
         affiliation: "owner",
       }
     },

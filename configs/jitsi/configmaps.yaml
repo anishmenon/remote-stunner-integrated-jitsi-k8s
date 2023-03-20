@@ -12,7 +12,12 @@ data:
   AUTH_TYPE: "jwt"
 # Application secret known only to your token generator
   JWT_APP_SECRET: "A12988E22EA99EA22B97BD634FDE31CC5A3C48D96B544329B7AD3C84E7A06398"
-
+  RESOLUTION: '720'
+  RESOLUTION_MIN: '360'
+  RESOLUTION_WIDTH: '1280'
+  RESOLUTION_WIDTH_MIN: '640'
+  START_BITRATE: '5000000'
+  
   # This is just for testing purpose to enforce JVB/STUNner usage.
   # In production is recommended to turn this on.
   ENABLE_P2P: "0"
@@ -27,6 +32,7 @@ data:
   # This shall be the same secret what is configured in STUNner gateway.
   TURN_CREDENTIALS: "6uQ3AzSCmizkf5SxvKNkyAjZYGIXs"
   JICOFO_AUTH_USER: "focus"
+  JVB_AUTH_USER: "jvb"
   # These are for internal communication. Change the domains for the one what
   # is pointing to your Ingress Gateway.
   XMPP_DOMAIN: media0.cluster.meetmo.io
@@ -35,9 +41,10 @@ data:
   XMPP_GUEST_DOMAIN: guest.media0.cluster.meetmo.io
   XMPP_RECORDER_DOMAIN: recorder.media0.cluster.meetmo.io
   XMPP_INTERNAL_MUC_DOMAIN: internal-muc.media0.cluster.meetmo.io
-  ENABLE_XMPP_WEBSOCKET: "1"
-  ENABLE_COLIBRI_WEBSOCKET: "1"
-  XMPP_MUC_MODULES: "external_services"
+  COLIBRI_REST_ENABLED: '1'
+  ENABLE_XMPP_WEBSOCKET: '1'
+  ENABLE_COLIBRI_WEBSOCKET: '1'
+  XMPP_MUC_MODULES: "external_modules"
   TZ: 'UTC'
   LOG_LEVEL: 'info'
 ---
@@ -82,14 +89,21 @@ metadata:
     app.kubernetes.io/component: jvb
 data:
   JVB_BREWERY_MUC: 'jvbbrewery'
-  JVB_PORT: '10000'
+  JVB_PORT: '30300'
+  RESOLUTION: '720'
+  RESOLUTION_MIN: '360'
+  RESOLUTION_WIDTH: '1280'
+  RESOLUTION_WIDTH_MIN: '640'
+  START_BITRATE: '5000000'
+  
   # This the official jitsi STUN server. You can use anything else.
-  JVB_STUN_SERVERS: 'meet-jit-si-turnrelay.jitsi.net:443'
+  JVB_STUN_SERVERS: 'stun.l.google.com:19302,stun1.l.google.com:19302,stun2.l.google.com:19302'
   JVB_TCP_HARVESTER_DISABLED: '1'
   # Change default if your prosody deployment is in another namespace than default
   XMPP_SERVER: 'jitsi-prosody.default.svc.cluster.local'
-  COLIBRI_REST_ENABLED: 'true'
-  ENABLE_COLIBRI_WEBSOCKET: 'false'
+  COLIBRI_REST_ENABLED: '0'
+  ENABLE_XMPP_WEBSOCKET: '0'
+  ENABLE_COLIBRI_WEBSOCKET: '0'
 ---
 apiVersion: v1
 kind: ConfigMap

@@ -118,7 +118,7 @@ Open this [file](/configs/stunner/gateway.yaml).
 Read the comments carefully and change it according to your needs. After that apply it:
 
 ```
-kubectl apply -f /configs/stunner/gateway.yaml
+kubectl apply -f /configs/stunner/lk-gateway.yaml
 ```
 
 Wait until STUNner gets a load balancer IP:

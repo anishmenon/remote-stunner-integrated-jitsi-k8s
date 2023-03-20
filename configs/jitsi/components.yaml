@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: jitsi-meet
-          image: "jitsi/web:stable"
+          image: "jitsi/web:stable "
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config-volume
@@ -203,7 +203,7 @@ spec:
     spec:
       containers:
         - name: jitsi-meet
-          image: "jitsi/jicofo:stable"
+          image: "jitsi/jicofo:stable "
           imagePullPolicy: IfNotPresent
           envFrom:
           - secretRef:
@@ -249,7 +249,7 @@ spec:
     spec:
       containers:
         - name: jitsi-meet
-          image: "jitsi/jvb:stable"
+          image: "jitsi/jvb:stable "
           imagePullPolicy: IfNotPresent
           envFrom:
           - secretRef:
@@ -261,7 +261,7 @@ spec:
           env:
           ports:
             - name: rtp-udp
-              containerPort: 10000
+              containerPort: 30300
               protocol: UDP
           livenessProbe:
             httpGet:
@@ -290,10 +290,10 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 10000
+    - port: 30300
       protocol: UDP
       name: rtp-udp
-      targetPort: 10000
+      targetPort: 30300
   selector:
     app.kubernetes.io/name: jitsi-meet
     app.kubernetes.io/instance: jitsi

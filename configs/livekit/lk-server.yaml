@@ -17,10 +17,10 @@ data:
       port_range_start: 50000
       tcp_port: 7801
       stun_servers:
-        - lk-stunner-svc.kubes.meetmo.io:443
+        - relay1.cluster.meetmo.io:443
       turn_servers:
       - credential: pass-1
-        host: lk-stunner-svc.kubes.meetmo.io
+        host: relay1.cluster.meetmo.io
         port: 443
         protocol: tls
         username: user-1
