@@ -7,11 +7,25 @@ metadata:
 data:
   config.yaml: |
     keys:
-      access_token: secret
+      access_token: 2ea28d33c5fd79804210fef46d9b97ea287fa4
+    
     log_level: debug
     port: 7880
+    
     redis:
-      address: redis.default.svc:6379
+      address: db-redis-nyc1-63688-do-user-13370465-0.b.db.ondigitalocean.com:25061
+      db: 0
+      username: default
+      password: AVNS_bTx9GKCWilylnRIz4ME
+      use_tls: true
+        
+    room:
+      max_participants: 0
+      enabled_codecs:
+        - mime: audio/opus
+        - mime: video/vp9
+        - mime: video/av1
+        - mime: video/vp8    
     rtc:
       port_range_end: 60000
       port_range_start: 50000
@@ -25,9 +39,14 @@ data:
         protocol: tls
         username: user-1
       use_external_ip: false
+    
+    ingress:
+      rtmp_base_url: rtmp://stream.meetmo.io/live
+    
     turn:
       enabled: false
       loadBalancerAnnotations: {}
+
 ---
 apiVersion: v1
 kind: Service
@@ -36,7 +55,7 @@ metadata:
   labels:
     app.kubernetes.io/name: lk-server
     app.kubernetes.io/instance: livekit
-    app.kubernetes.io/version: "v1.1.2"
+    app.kubernetes.io/version: "latest"
 spec:
   type: LoadBalancer
   ports:
@@ -48,6 +67,7 @@ spec:
       targetPort: 7801
       protocol: TCP
       name: rtc-tcp
+ 
   selector:
     app.kubernetes.io/name: lk-server
     app.kubernetes.io/instance: livekit
@@ -59,7 +79,7 @@ metadata:
   labels:
     app.kubernetes.io/name: lk-server
     app.kubernetes.io/instance: livekit
-    app.kubernetes.io/version: "v1.1.2"
+    app.kubernetes.io/version: "latest"
 spec:
   replicas: 1
   selector:
@@ -79,14 +99,35 @@ spec:
       terminationGracePeriodSeconds: 18000 # 5 hours
       containers:
         - name: lk-server
-          image: "livekit/livekit-server:v1.1.2"
+          image: "livekit/livekit-server:latest"
           imagePullPolicy: IfNotPresent
+          args: ["--disable-strict-config"]
           env:
             - name: LIVEKIT_CONFIG
               valueFrom:
                 configMapKeyRef:
                   name: lk-server
                   key: config.yaml
+
+            - name: LIVEKIT_AV1_PARAMS_PROFILE
+              value: "2"
+            - name: LIVEKIT_AV1_PARAMS_LEVEL
+              value: "2.1"
+            - name: LIVEKIT_VP9_PARAMS_PROFILE_ID
+              value: "2"
+            - name: LIVEKIT_VP9_PARAMS_BITRATE
+              value: "1000000"
+            - name: LIVEKIT_SVC
+              value: "true"
+            - name: LIVEKIT_SIMULCAST_MODE
+              value: "svc"
+            - name: LIVEKIT_SIMULCAST_NUM_STREAMS
+              value: "3"
+            - name: LIVEKIT_SIMULCAST_SCALING_MODES
+              value: "resolution,resolution,resolution"
+            - name: LIVEKIT_SIMULCAST_RIDS
+              value: "f,h,q"
+            
           ports:
             - name: http
               containerPort: 7880
@@ -94,6 +135,7 @@ spec:
             - name: rtc-tcp
               containerPort: 7801
               protocol: TCP
+
           resources:
             limits:
               cpu: 2000m
@@ -101,3 +143,5 @@ spec:
             requests:
               cpu: 500m
               memory: 128Mi
+      
+      

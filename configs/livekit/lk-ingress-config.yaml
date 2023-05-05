@@ -1,0 +1,17 @@
+# Livekit server
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lk-ingress-cf
+data:
+  config.yaml: |
+    api_key: access_token
+    api_secret: 2ea28d33c5fd79804210fef46d9b97ea287fa4
+    ws_url: wss://lkws.cluster.meetmo.io
+    insecure: true
+    redis:
+        address: db-redis-nyc1-63688-do-user-13370465-0.b.db.ondigitalocean.com:25061
+        db: 0
+        username: default
+        password: AVNS_bTx9GKCWilylnRIz4ME
+        use_tls: true

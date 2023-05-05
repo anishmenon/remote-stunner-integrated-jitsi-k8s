@@ -1,0 +1,5 @@
+{
+    "room_name": "meetmoio", 
+"track_id": "TR_VCQhSmZJHrZX7q", 
+"websocket_url": "ws://ingest:8000/ws" 
+}

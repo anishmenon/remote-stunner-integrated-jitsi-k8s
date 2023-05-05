@@ -1,0 +1,26 @@
+log_level: info
+api_key: access_token
+api_secret: 2ea28d33c5fd79804210fef46d9b97ea287fa4
+room_only: false
+web_only: false
+track_composite_only: false
+track_only: false
+file_only: false
+stream_only: false
+segments_only: false
+muting: false
+session_limits: # optional egress duration limits - once hit, egress will end with status EGRESS_LIMIT_REACHED
+  file_output_max_duration: 1h
+  stream_output_max_duration: 90m
+  segment_output_max_duration: 3h
+
+gcp:
+    bucket: lkbk
+
+redis:
+    address: db-redis-nyc1-63688-do-user-13370465-0.b.db.ondigitalocean.com:25061
+    db: 0
+    username: default
+    password: AVNS_bTx9GKCWilylnRIz4ME
+    use_tls: true
+ws_url: wss://lkws.cluster.meetmo.io

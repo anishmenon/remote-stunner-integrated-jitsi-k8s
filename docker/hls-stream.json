@@ -1,0 +1,8 @@
+{
+    "room_name": "m16-standup-call",
+    "layout": "speaker",
+    "segments": {
+        "filename_prefix": "hls/m16-standup-call",
+        "playlist_name": "m16-standup-call.m3u8"
+    }
+}

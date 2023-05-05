@@ -1,0 +1,28 @@
+
+create admin
+
+livekit-cli create-token --api-key access_token --api-secret 2ea28d33c5fd79804210fef46d9b97ea287fa4 --list --join --admin --room room3 --identity admin
+
+
+creat normal user
+
+livekit-cli create-token --api-key access_token --api-secret 2ea28d33c5fd79804210fef46d9b97ea287fa4 --list --join --room room3 --identity anish
+
+livekit-cli delete-room --name room3 --api-key access_token --api-secret 2ea28d33c5fd79804210fef46d9b97ea287fa4 --url https://media1ws.cluster.meetmo.io
+
+
+livekit-cli list-rooms --api-key access_token --api-secret 2ea28d33c5fd79804210fef46d9b97ea287fa4 --url https://media1ws.cluster.meetmo.io
+
+
+
+livekit-cli list-egress --api-key access_token --api-secret 2ea28d33c5fd79804210fef46d9b97ea287fa4 --url https://media1ws.cluster.meetmo.io
+
+
+livekit-cli start-track-composite-egress --request /Users/anish/remote-stunner-integrated-jitsi-k8s/docker/track-composite.json
+
+
+
+livekit-cli start-room-composite-egress --request /Users/anish/remote-stunner-integrated-jitsi-k8s/docker/room-composite.json --api-key access_token --api-secret 2ea28d33c5fd79804210fef46d9b97ea287fa4 --url https://media1ws.cluster.meetmo.io
+
+
+

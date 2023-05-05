@@ -1,0 +1,22 @@
+docker run --rm \
+    -e INGRESS_CONFIG_FILE=/out/config.yaml \
+    -p 1935:1935 \
+    -v ~/egress-test:/out \
+    livekit/ingress
+
+
+
+docker run --rm \
+    -e INGRESS_CONFIG_BODY=`cat ~/egress-test/config.yaml` \
+    -p 1935:1935 \
+    livekit/ingress
+
+
+docker run --rm  -e INGRESS_CONFIG_FILE=/out/config.yaml  -p 1935:1935     -v ~/egress-test:/out     livekit/ingress
+
+
+docker run --rm \
+    -e EGRESS_CONFIG_FILE=/out/egress.yaml \
+    -e GOOGLE_APPLICATION_CREDENTIALS=/out/gcp.json \
+    -v ~/egress-test:/out \
+    livekit/egress

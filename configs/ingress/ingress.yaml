@@ -8,6 +8,7 @@ metadata:
     app.kubernetes.io/component: web
   annotations:
     kubernetes.io/ingress.class:  "nginx"
+    
 spec:
   # This is the TLS settings for Nginx Ingress
   tls:
@@ -18,6 +19,7 @@ spec:
       - media0.cluster.meetmo.io # TODO: Change it
       - media1.cluster.meetmo.io # Application server for LiveKit
       - media1ws.cluster.meetmo.io # Media server for LiveKit
+    
   
   rules:
       # This is also the domain of your web service

@@ -1,0 +1,10 @@
+{
+  "room_name": "m16-standup-call",
+  "audio_track_id": "TR_VC9tD9vKx72UqY",
+  "video_track_id": "TR_VC9tD9vKx72UqY",
+  "file": {
+      "file_type": "MP4",
+      "filepath": "track-c-test/track-composite-test.mp4"
+     
+  }
+}
