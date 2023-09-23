@@ -121,12 +121,6 @@ spec:
               value: "true"
             - name: LIVEKIT_SIMULCAST_MODE
               value: "svc"
-            - name: LIVEKIT_SIMULCAST_NUM_STREAMS
-              value: "3"
-            - name: LIVEKIT_SIMULCAST_SCALING_MODES
-              value: "resolution,resolution,resolution"
-            - name: LIVEKIT_SIMULCAST_RIDS
-              value: "f,h,q"
             
           ports:
             - name: http

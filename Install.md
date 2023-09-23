@@ -42,8 +42,13 @@ On the [Digitalocean](https://cloud.digitalocean.com/kubernetes/) website create
 
 Because both STUNner and Jitsi uses the same certificate it is required to create this secret in the default namespace where the Jitsi deployment will be located and in the stunner namespace where the stunner will located.
 
+
+meetmo-cluster-ssl
+
+
+
 ```console
- kubectl create secret tls meetmo-cluster-ssl --cert=ssl/certificate.crt --key=ssl/private.key 
+ kubectl create secret tls meetmo-cluster-ssl --cert=certificate.crt --key=private.key 
 kubectl create namespace stunner
 kubectl create secret tls meetmo-cluster-ssl --cert=ssl/certificate.crt --key=ssl/private.key  -n stunner
 ```

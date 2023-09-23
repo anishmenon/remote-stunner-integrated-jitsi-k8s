@@ -1,0 +1,79 @@
+affinity: {}
+autoscaling:
+  enabled: true
+  maxReplicas: 5
+  minReplicas: 1
+  targetCPUUtilizationPercentage: 60
+deploymentStrategy: {}
+fullnameOverride: ""
+image:
+  pullPolicy: IfNotPresent
+  repository: livekit/livekit-server
+  tag: v1.4.3
+imagePullSecrets: []
+livekit:
+  keys:
+    access_token: 2ea28d33c5fd79804210fef46d9b97ea287fa4
+    eoa4b02rickcpj8CO_HjwWetaziY434b02rickcp: eoa4b02rickcpj8CO_HjwWetaziY434b02rickcp
+  log_level: debug
+  port: 7880
+  redis:
+    address: db-redis-nyc1-63688-do-user-13370465-0.b.db.ondigitalocean.com:25061
+    db: 3
+    password: AVNS_bTx9GKCWilylnRIz4ME
+    use_tls: true
+    username: default
+  room:
+    empty_timeout: 3000
+    enable_remote_unmute: true
+    enabled_codecs:
+    - mime: audio/opus
+    - mime: video/vp9
+    - mime: video/av1
+    - mime: video/vp8
+    max_participants: 0
+  
+  egress:
+    use_psrpc: true
+  rtc:
+    allow_tcp_fallback: true
+    reconnect_on_publication_error: true
+    reconnect_on_subscription_error: true
+    tcp_port: 7881
+    use_external_ip: true
+  turn:
+    domain: lk-turn-dev.cluster.meetmo.io
+    enabled: true
+    external_tls: false
+    secretName: meetmo-cluster-ssl
+    serviceType: LoadBalancer
+    tls_port: 443
+    udp_port: 3478
+  
+loadBalancer:
+  annotations: {}
+  servicePort: 80
+  tls:
+  - hosts:
+    - lk-helm-dev.cluster.meetmo.io
+    secretName: meetmo-cluster-ssl
+  type: do
+nameOverride: ""
+nodeSelector: {}
+podAnnotations:
+  linkerd.io/inject: disabled
+  sidecar.istio.io/inject: "false"
+podHostNetwork: true
+podSecurityContext: {}
+replicaCount: 1
+securityContext: {}
+serviceAccount:
+  annotations: {}
+  create: true
+  name: lk-helm-dev-service
+storeKeysInSecret:
+  enabled: false
+  existingSecret: ""
+  keys: {}
+terminationGracePeriodSeconds: 18000
+tolerations: []
